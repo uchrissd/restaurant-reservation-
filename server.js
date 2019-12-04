@@ -30,48 +30,46 @@ var waitlistArray = [];
 
 // Routes
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "view.html"));
+  res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
-app.get("/add", function(req, res) {
-  res.sendFile(path.join(__dirname, "add.html"));
+app.get("/tables", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/tables.html"));
 });
 
-// Displays all characters
-app.get("/api/characters", function(req, res) {
-  return res.json(characters);
+app.get("/reservations", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/reservations.html"));
 });
 
-// Displays a single character, or returns false
-app.get("/api/characters/:character", function(req, res) {
-  var chosen = req.params.character;
-
-  console.log(chosen);
-
-  for (var i = 0; i < characters.length; i++) {
-    if (chosen === characters[i].routeName) {
-      return res.json(characters[i]);
-    }
-  }
-
-  return res.json(false);
+// Displays all tables and reservations
+app.get("/api/tables", function(req, res) {
+  return res.json(tablesArray);
 });
 
-// Create New Characters - takes in JSON input
-app.post("/api/characters", function(req, res) {
+app.get("/api/waitlist", function(req, res) {
+  return res.json(waitlistArray);
+});
+
+
+
+// Create New Reservations - takes in JSON input
+app.post("/api/reserve", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body parsing middleware
-  var newCharacter = req.body;
+  var newReservation = req.body;
 
   // Using a RegEx Pattern to remove spaces from newCharacter
   // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-  newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
+  newReservation.routeName = newReservation.name.replace(/\s+/g, "").toLowerCase();
 
-  console.log(newCharacter);
+  console.log(newReservation);
+  if(tablesArray.length<5){
+    tablesArray.push(newReservation);
+  }else{
+    waitlistArray.push(newReservation);
+  }
 
-  characters.push(newCharacter);
-
-  res.json(newCharacter);
+  res.json(newReservation);
 });
 
 // Starts the server to begin listening
