@@ -87,15 +87,22 @@
 
 	$("#submit").on("click", function(event) {
       event.preventDefault();
-      var newCharacter = {
+      var newReservation = {
 		customerName: $("#reserve_name").val().trim(),
 		phoneNumber: $("#reserve_phone").val().trim(),
         customerEmail: $("#reserve_email").val().trim(),
         customerID: $("#reserve_uniqueID").val().trim(),
 	  }
+
+	  $.post("/api/reserve", newReservation)
+        .then(function(data) {
+          console.log("reservations.html", data);
+          alert("Adding new reservation...");
+        });
+
 	})
 	</script>
-	
+
 </body>
 
 </html>
