@@ -59,7 +59,8 @@
 	
 	<script type="text/javascript">
 	
-		var tableNum = 1
+		var tableNum = 1;
+		var waitNum = 1;
 
 	$.get("/api/tables", function(data) {
 		console.log(data);
@@ -82,12 +83,32 @@
 
 		tableNum++;
 		})
-		
-	  });
+	});
 
-	$.get("/api/waitlist",function(data){
+	$.get("/api/waitlist", function(data) {
+		console.log(data);
+		data.forEach(customer => {
+		var waitlistDiv = $("<div>");
+		var waitlistNumber = $("<h1> Table: "+waitNum+"</h1>");
+		var breakLine = $("<hr>");
+		var waitlistID = $("<h3>"+customer.customerID+"</h3>");
+		var waitlistName = $("<h3>"+customer.customerName+"</h3>");
+		var waitlistPhone = $("<h3>"+customer.phoneNumber+"</h3>");
+		var waitlistEmail = $("<h3>"+customer.customerEmail+"</h3>");
 
-	})
+		waitlistDiv.append(waitlistNumber);
+		waitlistDiv.append(breakLine);
+		waitlistDiv.append(waitlistID);
+		waitlistDiv.append(waitlistName);
+		waitlistDiv.append(waitlistPhone);
+		waitlistDiv.append(waitlistEmail);
+		$("#waitlistSection").append(waitlistDiv);
+
+		waitNum++;
+		})
+	});
+
+	
 
 
 	</script>
