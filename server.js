@@ -16,9 +16,9 @@ app.use(express.json());
 var reservationsArray = [
   {
     customerName: "",
+    phoneNumber: "",
     customerEmail: "",
-    customerId: "",
-    phoneNumber: ""
+    customerId: ""
   }
 ];
 
