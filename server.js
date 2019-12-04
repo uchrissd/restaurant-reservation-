@@ -13,14 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //Reservation array
-var reservationsArray = [
-  {
-    customerName: "",
-    phoneNumber: "",
-    customerEmail: "",
-    customerId: ""
-  }
-];
 
 //Tables array
 var tablesArray = [];
